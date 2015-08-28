@@ -13,7 +13,7 @@
 	"require": {
 		"php": ">=5.5",
 		"kdyby/console": "~2.4",
-		"latte/latte": "~2.4@dev",
+		"latte/latte": "~2.3, >=2.3.4",
 		"nette/di": "~2.3"
 	},
 	"require-dev": {
