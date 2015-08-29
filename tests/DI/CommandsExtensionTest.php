@@ -30,7 +30,7 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 			$container->findByType(CompileTemplatesCommand::class)
 		);
 		$this->assertSame(
-			['commands.compileTemplates' => TRUE],
+			['commands.compileTemplates' => true],
 			$container->findByTag(ConsoleExtension::TAG_COMMAND)
 		);
 	}
@@ -38,9 +38,9 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 	/**
 	 * @dataProvider provideConfigs
 	 * @param array $config
-	 * $param string|NULL $expectedException
+	 * $param string|null $expectedException
 	 */
-	public function testConfig(array $config, $expectedException = NULL)
+	public function testConfig(array $config, $expectedException = null)
 	{
 		if ($expectedException) {
 			$this->setExpectedException($expectedException);
@@ -56,12 +56,12 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 		return [
 			[ // defaults
 				[],
-				NULL,
+				null,
 			],
 			[ // compileTemplates section must be array
 				[
 					'commands' => [
-						'compileTemplates' => FALSE,
+						'compileTemplates' => false,
 					],
 				],
 				AssertionException::class,
@@ -70,7 +70,7 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 				[
 					'commands' => [
 						'compileTemplates' => [
-							'source' => FALSE
+							'source' => false,
 						],
 					],
 				],
@@ -80,18 +80,18 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 				[
 					'commands' => [
 						'compileTemplates' => [
-							'source' => '%appDir%'
+							'source' => '%appDir%',
 						],
 					],
 				],
-				NULL,
+				null,
 			],
 			[ // source must be array of strings
 				[
 					'commands' => [
 						'compileTemplates' => [
 							'source' => [
-								FALSE
+								false,
 							],
 						],
 					],
@@ -108,7 +108,7 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 						],
 					],
 				],
-				NULL,
+				null,
 			],
 		];
 	}
@@ -119,7 +119,7 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 	 */
 	private function createContainer(array $config)
 	{
-		$loader = new ContainerLoader(TEMP_DIR . '/container', TRUE);
+		$loader = new ContainerLoader(TEMP_DIR, true);
 		$class = $loader->load($config, function (Compiler $compiler) use ($config) {
 			$compiler->addExtension('commands', new CommandsExtension);
 			$compiler->addConfig($config);

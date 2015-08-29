@@ -44,7 +44,7 @@ class CommandsExtension extends CompilerExtension
 				return Helpers::expand($directory, $builder->parameters);
 			}, (array) $config['source'])])
 			->addTag(ConsoleExtension::TAG_COMMAND)
-			->setAutowired(FALSE);
+			->setAutowired(false);
 	}
 
 }

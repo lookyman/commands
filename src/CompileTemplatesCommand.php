@@ -6,7 +6,6 @@ use Nette\Application\UI\ITemplateFactory;
 use Nette\Utils\Finder;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class CompileTemplatesCommand extends Command
@@ -27,13 +26,7 @@ class CompileTemplatesCommand extends Command
 	protected function configure()
 	{
 		$this->setName('lookyman:compile-templates')
-			->setDescription('Compiles all templates.')
-			->addOption(
-				'verbose',
-				'v',
-				InputOption::VALUE_NONE,
-				'If set, the command will inform about it\'s progress status.'
-			);
+			->setDescription('Compiles all templates.');
 	}
 
 	public function run(InputInterface $input, OutputInterface $output)
@@ -44,21 +37,10 @@ class CompileTemplatesCommand extends Command
 			->getLatte();
 
 		foreach (Finder::find('*.latte')->from($this->source) as $name => $file) {
-			if ((bool) $input->getOption('verbose')) {
-				$output->write('Processing template "' . $name . '"');
-			}
-
 			try {
 				$latte->warmupCache($name);
-				if ((bool) $input->getOption('verbose')) {
-					$output->writeln(' OK');
-				}
 
-			} catch (\Exception $e) {
-				if ((bool) $input->getOption('verbose')) {
-					$output->writeln(' FAILED');
-				}
-			}
+			} catch (\Exception $e) {}
 		}
 	}
 
