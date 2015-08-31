@@ -36,12 +36,18 @@ class CompileTemplatesCommand extends Command
 			->createTemplate()
 			->getLatte();
 
+		$counter = [0, 0];
 		foreach (Finder::find('*.latte')->from($this->source) as $name => $file) {
 			try {
 				$latte->warmupCache($name);
+				$counter[0]++;
 
-			} catch (\Exception $e) {}
+			} catch (\Exception $e) {
+				$counter[1]++;
+			}
 		}
+
+		$output->writeln(sprintf('%s templates successfully compiled, %s failed.', $counter[0], $counter[1]));
 	}
 
 }

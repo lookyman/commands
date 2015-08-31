@@ -30,12 +30,17 @@ class CompileTemplatesCommandTest extends \PHPUnit_Framework_TestCase
 			->method('getByType')
 			->will($this->returnValue($templateFactory));
 
+		$output = $this->getMock(OutputInterface::class);
+		$output->expects($this->once())
+			->method('writeln')
+			->with('1 templates successfully compiled, 0 failed.');
+
 		$command = new CompileTemplatesCommand(__DIR__ . '/templates');
 		$command->setHelperSet(new HelperSet([
 			'container' => new ContainerHelper($container),
 		]));
 
-		$command->run($this->getMock(InputInterface::class), $this->getMock(OutputInterface::class));
+		$command->run($this->getMock(InputInterface::class), $output);
 		$this->assertCount(1, Finder::find('tests-templates-compileTemplatesCommand-latte-Template*.php')->from(TEMP_DIR));
 	}
 
