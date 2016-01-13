@@ -140,4 +140,5 @@ class CommandsExtensionTest extends \PHPUnit_Framework_TestCase
 			],
 		];
 	}
+
 }
