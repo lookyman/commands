@@ -37,9 +37,11 @@ class TestPresenterMapGeneratorCommand extends Command
 
 			$ref = new ClassType($presenter);
 			foreach ($ref->getMethods(\ReflectionMethod::IS_PUBLIC | !\ReflectionMethod::IS_STATIC | !\ReflectionMethod::IS_ABSTRACT) as $method) {
-				if (!preg_match('#^render.+#i', $method->getName(), $match)) {
+				if (!preg_match('#^render(.+)#i', $method->getName(), $match)) {
 					continue;
-				} elseif ($method->hasAnnotation('autoTestSkip'))
+				} elseif ($method->hasAnnotation('autoTestSkip')) {
+					continue;
+				}
 
 				$data[] = [
 					'presententer' => $presenterName,
